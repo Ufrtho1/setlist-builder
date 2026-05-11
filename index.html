@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
+    <title>Setlist Builder</title>
+  </head>
+  <body>
+    <section class="main-view">
+      <h1>Setlist Builder</h1>
+      <button class="add-new-song">Add New Song</button>
+      <button>Create New Setlist</button>
+      <button>Setlists</button>
+    </section>
+
+    <section class="add-song-view">
+      <h2>Song</h2>
+      <div class="song-parameters">
+        <input type="text" placeholder="Song name" class="input-name" />
+        <input type="number" placeholder="Rating 1-5" class="input-rating" />
+        <input type="number" placeholder="BPM" class="input-bpm" />
+        <input type="number" placeholder="Vibe 1->10" class="input-vibe" />
+        <input type="checkbox" placeholder="Is it Cover" class="input-cover" />
+        <input type="checkbox" placeholder="Is it New" class="input-new" />
+        <input type="text" placeholder="Song tone" class="input-tone" />
+        <input
+          type="number"
+          placeholder="Lengt of the song"
+          class="input-length"
+        />
+        <input
+          type="number"
+          placeholder="Popularity 1->10"
+          class="input-popularity"
+        />
+      </div>
+      <button class="save-song">Save song</button>
+      <button class="return">Return</button>
+    </section>
+  </body>
+</html>
