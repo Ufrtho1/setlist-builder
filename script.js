@@ -1,6 +1,10 @@
 "use strict";
 
-// variables
+// data variables
+const saved = localStorage.getItem("savedSongs");
+const savedSongs = saved ? JSON.parse(saved) : [];
+
+// HTML
 const addNewSongBTN = document.querySelector(".add-new-song");
 const returnBTN = document.querySelector(".return");
 const addSongView = document.querySelector(".add-song-view");
@@ -48,9 +52,11 @@ saveSong.addEventListener("click", function () {
       .map((tag) => tag.value),
     cover: inputCover.checked,
     new: inputNew.checked,
-    tone: inputNew.value,
+    tone: inputTone.value,
     length: inputLength.value,
   };
+  savedSongs.push(song);
+  localStorage.setItem("savedSongs", JSON.stringify(savedSongs));
   console.log(song);
 });
 
