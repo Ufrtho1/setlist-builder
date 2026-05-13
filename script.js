@@ -20,20 +20,10 @@ const inputLength = document.querySelector(".input-length");
 const inputPopularity = document.querySelector(".input-popularity");
 
 // Music styles
-const rockTag = document.querySelector(".rock-tag");
-const folkTag = document.querySelector(".folk-tag");
-const jazzBluesTag = document.querySelector(".jazz-blues-tag");
-const popTag = document.querySelector(".pop-tag");
-const punkTag = document.querySelector(".punk-tag");
-const edmTag = document.querySelector(".edm-tag");
-const metalTag = document.querySelector(".metal-tag");
+const musicStyleTags = document.querySelectorAll(".music-style-tags input");
 
 // Atmosphere tags
-const clubTag = document.querySelector(".club-tag");
-const festivalTag = document.querySelector(".festival-tag");
-const buskingTag = document.querySelector(".busking-tag");
-const socialEventTag = document.querySelector(".social-event-tag");
-const theaterTag = document.querySelector(".theater-tag");
+const atmosphereTags = document.querySelectorAll(".atmosphere-tags input");
 
 // Add a New song
 // click functions
@@ -49,23 +39,13 @@ saveSong.addEventListener("click", function () {
     rating: inputRating.value,
     BPM: inputBPM.value,
     vibe: inputVibe.value,
-    musicStyle: [
-      rockTag.checked,
-      folkTag.checked,
-      jazzBluesTag.checked,
-      popTag.checked,
-      punkTag.checked,
-      edmTag.checked,
-      metalTag.checked,
-    ],
+    musicStyle: Array.from(musicStyleTags)
+      .filter((tag) => tag.checked === true)
+      .map((tag) => tag.value),
     popularity: inputPopularity.value,
-    atmosphere: [
-      clubTag.checked,
-      festivalTag.checked,
-      buskingTag.checked,
-      socialEventTag.checked,
-      theaterTag.checked,
-    ],
+    atmosphere: Array.from(atmosphereTags)
+      .filter((tag) => tag.checked === true)
+      .map((tag) => tag.value),
     cover: inputCover.checked,
     new: inputNew.checked,
     tone: inputNew.value,
