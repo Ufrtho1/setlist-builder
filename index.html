@@ -22,8 +22,10 @@
         <input type="number" placeholder="Rating 1-5" class="input-rating" />
         <input type="number" placeholder="BPM" class="input-bpm" />
         <input type="number" placeholder="Vibe 1->10" class="input-vibe" />
-        <input type="checkbox" placeholder="Is it Cover" class="input-cover" />
-        <input type="checkbox" placeholder="Is it New" class="input-new" />
+        <label>
+          <input type="checkbox" class="input-cover" /> Is it Cover?
+        </label>
+        <label> <input type="checkbox" class="input-new" /> Is it New? </label>
         <input type="text" placeholder="Song tone" class="input-tone" />
         <input
           type="number"
@@ -35,6 +37,29 @@
           placeholder="Popularity 1->10"
           class="input-popularity"
         />
+        <div class="music-style-tags">
+          <label> <input type="checkbox" class="rock-tag" /> Rock </label>
+          <label> <input type="checkbox" class="folk-tag" /> Folk </label>
+          <label>
+            <input type="checkbox" class="jazz-blues-tag" /> Jazz & Blues
+          </label>
+          <label> <input type="checkbox" class="pop-tag" /> Pop </label>
+          <label> <input type="checkbox" class="punk-tag" /> Punk </label>
+          <label> <input type="checkbox" class="edm-tag" /> EDM </label>
+          <label> <input type="checkbox" class="metal-tag" /> Metal </label>
+        </div>
+
+        <div class="atmosphere-tags">
+          <label> <input type="checkbox" class="club-tag" /> Rock </label>
+          <label>
+            <input type="checkbox" class="festival-tag" /> Festival
+          </label>
+          <label> <input type="checkbox" class="busking-tag" /> Busking </label>
+          <label>
+            <input type="checkbox" class="social-event-tag" /> Social event
+          </label>
+          <label> <input type="checkbox" class="theater-tag" /> Theater </label>
+        </div>
       </div>
       <button class="save-song">Save song</button>
       <button class="return">Return</button>

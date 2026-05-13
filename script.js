@@ -19,6 +19,22 @@ const inputTone = document.querySelector(".input-tone");
 const inputLength = document.querySelector(".input-length");
 const inputPopularity = document.querySelector(".input-popularity");
 
+// Music styles
+const rockTag = document.querySelector(".rock-tag");
+const folkTag = document.querySelector(".folk-tag");
+const jazzBluesTag = document.querySelector(".jazz-blues-tag");
+const popTag = document.querySelector(".pop-tag");
+const punkTag = document.querySelector(".punk-tag");
+const edmTag = document.querySelector(".edm-tag");
+const metalTag = document.querySelector(".metal-tag");
+
+// Atmosphere tags
+const clubTag = document.querySelector(".club-tag");
+const festivalTag = document.querySelector(".festival-tag");
+const buskingTag = document.querySelector(".busking-tag");
+const socialEventTag = document.querySelector(".social-event-tag");
+const theaterTag = document.querySelector(".theater-tag");
+
 // Add a New song
 // click functions
 // Add song interface
@@ -33,11 +49,25 @@ saveSong.addEventListener("click", function () {
     rating: inputRating.value,
     BPM: inputBPM.value,
     vibe: inputVibe.value,
-    // musicStyle: [],
+    musicStyle: [
+      rockTag.checked,
+      folkTag.checked,
+      jazzBluesTag.checked,
+      popTag.checked,
+      punkTag.checked,
+      edmTag.checked,
+      metalTag.checked,
+    ],
     popularity: inputPopularity.value,
-    // atmosphere: [],
-    cover: inputCover.value,
-    new: inputNew.value,
+    atmosphere: [
+      clubTag.checked,
+      festivalTag.checked,
+      buskingTag.checked,
+      socialEventTag.checked,
+      theaterTag.checked,
+    ],
+    cover: inputCover.checked,
+    new: inputNew.checked,
     tone: inputNew.value,
     length: inputLength.value,
   };
