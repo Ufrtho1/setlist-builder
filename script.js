@@ -31,14 +31,16 @@ const atmosphereTags = document.querySelectorAll(".atmosphere-tags input");
 
 // Add a New song
 // click functions
-// Add song interface
 addNewSongBTN.addEventListener("click", function () {
   mainView.style.display = "none";
   addSongView.style.display = "inline-block";
 });
 
+// function song interface
+
+// Add song interface
 saveSong.addEventListener("click", function () {
-  const song = {
+  let song = {
     name: inputName.value,
     rating: inputRating.value,
     BPM: inputBPM.value,
@@ -58,6 +60,27 @@ saveSong.addEventListener("click", function () {
   savedSongs.push(song);
   localStorage.setItem("savedSongs", JSON.stringify(savedSongs));
   console.log(song);
+
+  // set default values
+  song = {
+    name: (inputName.value = ""),
+    rating: (inputRating.value = ""),
+    BPM: (inputBPM.value = ""),
+    vibe: (inputVibe.value = ""),
+    musicStyle: Array.from(musicStyleTags)
+      .filter((tag) => tag.checked === true)
+      .map((tag) => (tag.checked = false)),
+    popularity: (inputPopularity.value = ""),
+    atmosphere: Array.from(atmosphereTags)
+      .filter((tag) => tag.checked === true)
+      .map((tag) => (tag.checked = false)),
+    cover: (inputCover.checked = false),
+    new: (inputNew.checked = false),
+    tone: (inputTone.value = ""),
+    length: (inputLength.value = ""),
+  };
+  console.log(song);
+  // console.log(savedSongs.map((tag) => tag === true));
 });
 
 // Main view interface
@@ -65,3 +88,7 @@ returnBTN.addEventListener("click", function () {
   mainView.style.display = "inline-block";
   addSongView.style.display = "none";
 });
+
+// removes localstorage
+// localStorage.removeItem("saved");
+// console.log(savedSongs);
