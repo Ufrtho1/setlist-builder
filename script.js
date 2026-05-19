@@ -11,6 +11,7 @@ const addSongView = document.querySelector(".add-song-view");
 const mainView = document.querySelector(".main-view");
 const songParameters = document.querySelector(".song-parameters");
 const saveSong = document.querySelector(".save-song");
+const listOfSongs = document.querySelector(".list-of-songs");
 
 // parameters
 const inputName = document.querySelector(".input-name");
@@ -29,37 +30,49 @@ const musicStyleTags = document.querySelectorAll(".music-style-tags input");
 // Atmosphere tags
 const atmosphereTags = document.querySelectorAll(".atmosphere-tags input");
 
+// function song interface
+// listOfSongs.innerHTML = "";
+
+const newSongInterface = function () {
+  listOfSongs.innerHTML = savedSongs
+    .map(
+      (song) =>
+        `<p>${song.name} ${song.rating} ${song.BPM} ${song.vibe} ${song.musicStyle} ${song.popularity} ${song.atmosphere} ${song.cover} ${song.new} ${song.tone} ${song.length}</p>`,
+    )
+    .join("");
+};
+
 // Add a New song
 // click functions
 addNewSongBTN.addEventListener("click", function () {
   mainView.style.display = "none";
   addSongView.style.display = "inline-block";
+  newSongInterface();
 });
-
-// function song interface
 
 // Add song interface
 saveSong.addEventListener("click", function () {
   let song = {
-    name: inputName.value,
-    rating: inputRating.value,
-    BPM: inputBPM.value,
-    vibe: inputVibe.value,
-    musicStyle: Array.from(musicStyleTags)
+    name: inputName.value ? `Name: ${inputName.value}` : "",
+    rating: inputRating.value ? `Rating: ${inputRating.value}` : "",
+    BPM: inputBPM.value ? `BPM: ${inputBPM.value}` : "",
+    vibe: inputVibe.value ? `Vibe: ${inputVibe.value}` : "",
+    musicStyle: `Music style: ${Array.from(musicStyleTags)
       .filter((tag) => tag.checked === true)
-      .map((tag) => tag.value),
-    popularity: inputPopularity.value,
-    atmosphere: Array.from(atmosphereTags)
+      .map((tag) => tag.value)}`,
+    popularity: inputPopularity.value
+      ? `Popularity: ${inputPopularity.value}`
+      : "",
+    atmosphere: `Atmosphere: ${Array.from(atmosphereTags)
       .filter((tag) => tag.checked === true)
-      .map((tag) => tag.value),
-    cover: inputCover.checked,
-    new: inputNew.checked,
-    tone: inputTone.value,
-    length: inputLength.value,
+      .map((tag) => tag.value)}`,
+    cover: inputCover.checked ? "It's cover" : "",
+    new: inputNew.checked ? "It's new song" : "",
+    tone: inputTone.value ? `Tone: ${inputTone.value}` : "",
+    length: inputLength.value ? `Length: ${inputLength.value}` : "",
   };
-  savedSongs.push(song);
+  savedSongs.unshift(song);
   localStorage.setItem("savedSongs", JSON.stringify(savedSongs));
-  console.log(song);
 
   // set default values
   song = {
@@ -79,8 +92,8 @@ saveSong.addEventListener("click", function () {
     tone: (inputTone.value = ""),
     length: (inputLength.value = ""),
   };
-  console.log(song);
   // console.log(savedSongs.map((tag) => tag === true));
+  newSongInterface();
 });
 
 // Main view interface
@@ -90,5 +103,5 @@ returnBTN.addEventListener("click", function () {
 });
 
 // removes localstorage
-// localStorage.removeItem("saved");
+// localStorage.removeItem("savedSongs");
 // console.log(savedSongs);
