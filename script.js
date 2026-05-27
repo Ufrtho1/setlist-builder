@@ -37,7 +37,7 @@ const newSongInterface = function () {
   listOfSongs.innerHTML = savedSongs
     .map(
       (song) =>
-        `<p>${song.name} ${song.rating} ${song.BPM} ${song.vibe} ${song.musicStyle} ${song.popularity} ${song.atmosphere} ${song.cover} ${song.new} ${song.tone} ${song.length}</p>`,
+        `<p> ${song.name ? `Name: ${song.name}` : ""} ${song.rating ? `Rating: ${song.rating}` : ""} ${song.BPM ? `BPM: ${song.BPM}` : ""} ${song.vibe ? `Vibe: ${song.vibe}` : ""} ${song.musicStyle ? `Music style: ${song.musicStyle}` : []} ${song.popularity ? `Popularity: ${song.popularity}` : ""} ${song.atmosphere ? `Atmosphere: ${song.atmosphere}` : []} ${song.cover} ${song.new} ${song.tone ? `Tone: ${song.tone}` : ""} ${song.length ? `Length: ${song.length}` : ""}</p>`,
     )
     .join("");
 };
@@ -53,23 +53,21 @@ addNewSongBTN.addEventListener("click", function () {
 // Add song interface
 saveSong.addEventListener("click", function () {
   let song = {
-    name: inputName.value ? `Name: ${inputName.value}` : "",
-    rating: inputRating.value ? `Rating: ${inputRating.value}` : "",
-    BPM: inputBPM.value ? `BPM: ${inputBPM.value}` : "",
-    vibe: inputVibe.value ? `Vibe: ${inputVibe.value}` : "",
-    musicStyle: `Music style: ${Array.from(musicStyleTags)
+    name: inputName.value,
+    rating: inputRating.value ? Number(inputRating.value) : null,
+    BPM: inputBPM.value ? Number(inputBPM.value) : null,
+    vibe: inputVibe.value ? Number(inputVibe.value) : null,
+    musicStyle: Array.from(musicStyleTags)
       .filter((tag) => tag.checked === true)
-      .map((tag) => tag.value)}`,
-    popularity: inputPopularity.value
-      ? `Popularity: ${inputPopularity.value}`
-      : "",
-    atmosphere: `Atmosphere: ${Array.from(atmosphereTags)
+      .map((tag) => tag.value),
+    popularity: inputPopularity.value ? Number(inputPopularity.value) : null,
+    atmosphere: Array.from(atmosphereTags)
       .filter((tag) => tag.checked === true)
-      .map((tag) => tag.value)}`,
+      .map((tag) => tag.value),
     cover: inputCover.checked ? "It's cover" : "",
     new: inputNew.checked ? "It's new song" : "",
-    tone: inputTone.value ? `Tone: ${inputTone.value}` : "",
-    length: inputLength.value ? `Length: ${inputLength.value}` : "",
+    tone: inputTone.value,
+    length: inputLength.value ? Number(inputLength.value) : null,
   };
   savedSongs.unshift(song);
   localStorage.setItem("savedSongs", JSON.stringify(savedSongs));
