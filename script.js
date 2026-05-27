@@ -37,7 +37,7 @@ const newSongInterface = function () {
   listOfSongs.innerHTML = savedSongs
     .map(
       (song) =>
-        `<p> ${song.name ? `Name: ${song.name}` : ""} ${song.rating ? `Rating: ${song.rating}` : ""} ${song.BPM ? `BPM: ${song.BPM}` : ""} ${song.vibe ? `Vibe: ${song.vibe}` : ""} ${song.musicStyle ? `Music style: ${song.musicStyle}` : []} ${song.popularity ? `Popularity: ${song.popularity}` : ""} ${song.atmosphere ? `Atmosphere: ${song.atmosphere}` : []} ${song.cover} ${song.new} ${song.tone ? `Tone: ${song.tone}` : ""} ${song.length ? `Length: ${song.length}` : ""}</p>`,
+        `<p id="${song.id}"> ${song.name ? `Name: ${song.name}` : ""} ${song.rating ? `,Rating: ${song.rating}` : ""} ${song.BPM ? `,BPM: ${song.BPM}` : ""} ${song.vibe ? `,Vibe: ${song.vibe}` : ""} ${song.musicStyle ? `,Music style: ${song.musicStyle}` : []} ${song.popularity ? `,Popularity: ${song.popularity}` : ""} ${song.atmosphere ? `,Atmosphere: ${song.atmosphere}` : []} ${song.cover} ${song.new} ${song.tone ? `,Tone: ${song.tone}` : ""} ${song.length ? `,Length: ${song.length}` : ""}</p>`,
     )
     .join("");
 };
@@ -53,6 +53,7 @@ addNewSongBTN.addEventListener("click", function () {
 // Add song interface
 saveSong.addEventListener("click", function () {
   let song = {
+    id: Date.now(),
     name: inputName.value,
     rating: inputRating.value ? Number(inputRating.value) : null,
     BPM: inputBPM.value ? Number(inputBPM.value) : null,
