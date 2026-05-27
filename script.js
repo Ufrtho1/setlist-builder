@@ -31,8 +31,6 @@ const musicStyleTags = document.querySelectorAll(".music-style-tags input");
 const atmosphereTags = document.querySelectorAll(".atmosphere-tags input");
 
 // function song interface
-// listOfSongs.innerHTML = "";
-
 const newSongInterface = function () {
   listOfSongs.innerHTML = savedSongs
     .map(
@@ -41,6 +39,33 @@ const newSongInterface = function () {
     )
     .join("");
 };
+
+// click on song by id
+listOfSongs.addEventListener("click", function (e) {
+  let clickedSong = savedSongs.find((song) => song.id === Number(e.target.id));
+
+  console.log(clickedSong);
+
+  // rewrite values as inputs
+  inputName.value = clickedSong.name;
+  inputBPM.value = clickedSong.BPM;
+  inputRating.value = clickedSong.rating;
+  inputVibe.value = clickedSong.vibe;
+  musicStyleTags.forEach(
+    (tag) => (tag.checked = clickedSong.musicStyle.includes(tag.value)),
+  );
+  inputPopularity.value = clickedSong.popularity;
+  atmosphereTags.forEach(
+    (tag) => (tag.checked = clickedSong.atmosphere.includes(tag.value)),
+  );
+  inputCover.checked = clickedSong.cover === "It's cover" || false;
+  inputNew.checked = clickedSong.new === "It's new song" || false;
+  inputTone.value = clickedSong.tone;
+  inputLength.value = clickedSong.length;
+
+  mainView.style.display = "none";
+  addSongView.style.display = "inline-block";
+});
 
 // Add a New song
 // click functions
