@@ -12,6 +12,7 @@ const mainView = document.querySelector(".main-view");
 const songParameters = document.querySelector(".song-parameters");
 const saveSong = document.querySelector(".save-song");
 const listOfSongs = document.querySelector(".list-of-songs");
+const updateSong = document.querySelector(".update-song");
 
 // parameters
 const inputName = document.querySelector(".input-name");
@@ -30,6 +31,51 @@ const musicStyleTags = document.querySelectorAll(".music-style-tags input");
 // Atmosphere tags
 const atmosphereTags = document.querySelectorAll(".atmosphere-tags input");
 
+// manipulating song
+let songId = null;
+
+// default
+const getDefault = function () {
+  return {
+    id: null,
+    name: (inputName.value = ""),
+    rating: (inputRating.value = ""),
+    BPM: (inputBPM.value = ""),
+    vibe: (inputVibe.value = ""),
+    musicStyle: Array.from(musicStyleTags)
+      .filter((tag) => tag.checked === true)
+      .map((tag) => (tag.checked = false)),
+    popularity: (inputPopularity.value = ""),
+    atmosphere: Array.from(atmosphereTags)
+      .filter((tag) => tag.checked === true)
+      .map((tag) => (tag.checked = false)),
+    cover: (inputCover.checked = false),
+    new: (inputNew.checked = false),
+    tone: (inputTone.value = ""),
+    length: (inputLength.value = ""),
+  };
+};
+
+const getSongData = function () {
+  return {
+    name: inputName.value,
+    rating: inputRating.value ? Number(inputRating.value) : null,
+    BPM: inputBPM.value ? Number(inputBPM.value) : null,
+    vibe: inputVibe.value ? Number(inputVibe.value) : null,
+    musicStyle: Array.from(musicStyleTags)
+      .filter((tag) => tag.checked === true)
+      .map((tag) => tag.value),
+    popularity: inputPopularity.value ? Number(inputPopularity.value) : null,
+    atmosphere: Array.from(atmosphereTags)
+      .filter((tag) => tag.checked === true)
+      .map((tag) => tag.value),
+    cover: inputCover.checked ? "It's cover" : "",
+    new: inputNew.checked ? "It's new song" : "",
+    tone: inputTone.value,
+    length: inputLength.value ? Number(inputLength.value) : null,
+  };
+};
+
 // function song interface
 const newSongInterface = function () {
   listOfSongs.innerHTML = savedSongs
@@ -43,6 +89,8 @@ const newSongInterface = function () {
 // click on song by id
 listOfSongs.addEventListener("click", function (e) {
   let clickedSong = savedSongs.find((song) => song.id === Number(e.target.id));
+
+  songId = clickedSong.id;
 
   console.log(clickedSong);
 
@@ -65,6 +113,20 @@ listOfSongs.addEventListener("click", function (e) {
 
   mainView.style.display = "none";
   addSongView.style.display = "inline-block";
+  updateSong.style.display = "inline-block";
+});
+
+// current song
+updateSong.addEventListener("click", function () {
+  let update = savedSongs.findIndex((song) => song.id === songId);
+  console.log(update);
+  let song = getSongData();
+  song.id = songId;
+  savedSongs[update] = song;
+  localStorage.setItem("savedSongs", JSON.stringify(savedSongs));
+  newSongInterface();
+  updateSong.style.display = "none";
+  song = getDefault();
 });
 
 // Add a New song
@@ -77,45 +139,14 @@ addNewSongBTN.addEventListener("click", function () {
 
 // Add song interface
 saveSong.addEventListener("click", function () {
-  let song = {
-    id: Date.now(),
-    name: inputName.value,
-    rating: inputRating.value ? Number(inputRating.value) : null,
-    BPM: inputBPM.value ? Number(inputBPM.value) : null,
-    vibe: inputVibe.value ? Number(inputVibe.value) : null,
-    musicStyle: Array.from(musicStyleTags)
-      .filter((tag) => tag.checked === true)
-      .map((tag) => tag.value),
-    popularity: inputPopularity.value ? Number(inputPopularity.value) : null,
-    atmosphere: Array.from(atmosphereTags)
-      .filter((tag) => tag.checked === true)
-      .map((tag) => tag.value),
-    cover: inputCover.checked ? "It's cover" : "",
-    new: inputNew.checked ? "It's new song" : "",
-    tone: inputTone.value,
-    length: inputLength.value ? Number(inputLength.value) : null,
-  };
+  let song = getSongData();
+  song.id = Date.now();
   savedSongs.unshift(song);
   localStorage.setItem("savedSongs", JSON.stringify(savedSongs));
 
   // set default values
-  song = {
-    name: (inputName.value = ""),
-    rating: (inputRating.value = ""),
-    BPM: (inputBPM.value = ""),
-    vibe: (inputVibe.value = ""),
-    musicStyle: Array.from(musicStyleTags)
-      .filter((tag) => tag.checked === true)
-      .map((tag) => (tag.checked = false)),
-    popularity: (inputPopularity.value = ""),
-    atmosphere: Array.from(atmosphereTags)
-      .filter((tag) => tag.checked === true)
-      .map((tag) => (tag.checked = false)),
-    cover: (inputCover.checked = false),
-    new: (inputNew.checked = false),
-    tone: (inputTone.value = ""),
-    length: (inputLength.value = ""),
-  };
+
+  song = getDefault();
   // console.log(savedSongs.map((tag) => tag === true));
   newSongInterface();
 });
