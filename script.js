@@ -81,18 +81,27 @@ const newSongInterface = function () {
   listOfSongs.innerHTML = savedSongs
     .map(
       (song) =>
-        `<p id="${song.id}"> ${song.name ? `Name: ${song.name}` : ""} ${song.rating ? `,Rating: ${song.rating}` : ""} ${song.BPM ? `,BPM: ${song.BPM}` : ""} ${song.vibe ? `,Vibe: ${song.vibe}` : ""} ${song.musicStyle ? `,Music style: ${song.musicStyle}` : []} ${song.popularity ? `,Popularity: ${song.popularity}` : ""} ${song.atmosphere ? `,Atmosphere: ${song.atmosphere}` : []} ${song.cover} ${song.new} ${song.tone ? `,Tone: ${song.tone}` : ""} ${song.length ? `,Length: ${song.length}` : ""}</p>`,
+        `<p id="${song.id}"> ${song.name ? `Name: ${song.name}` : ""} ${song.rating ? `,Rating: ${song.rating}` : ""} ${song.BPM ? `,BPM: ${song.BPM}` : ""} ${song.vibe ? `,Vibe: ${song.vibe}` : ""} ${song.musicStyle ? `,Music style: ${song.musicStyle}` : []} ${song.popularity ? `,Popularity: ${song.popularity}` : ""} ${song.atmosphere ? `,Atmosphere: ${song.atmosphere}` : []} ${song.cover} ${song.new} ${song.tone ? `,Tone: ${song.tone}` : ""} ${song.length ? `,Length: ${song.length}` : ""} <button class="delete-song" data-id="${song.id}">x</button></p>`,
     )
     .join("");
 };
 
 // click on song by id
 listOfSongs.addEventListener("click", function (e) {
+  if (e.target.classList.contains("delete-song")) {
+    const id = Number(e.target.dataset.id);
+    const index = savedSongs.findIndex((song) => song.id === id);
+    savedSongs.splice(index, 1);
+    localStorage.setItem("savedSongs", JSON.stringify(savedSongs));
+    newSongInterface();
+    return;
+  }
+
   let clickedSong = savedSongs.find((song) => song.id === Number(e.target.id));
 
   songId = clickedSong.id;
 
-  console.log(clickedSong);
+  // console.log(clickedSong);
 
   // rewrite values as inputs
   inputName.value = clickedSong.name;
